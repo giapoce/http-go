@@ -1,0 +1,14 @@
+version: '3'
+services:
+ test:
+   build: ./app
+   working_dir: /go/src/http-go/app
+   ports: 
+   - "9090:9090"
+   links:
+    - redis
+   environment:
+    REDIS_URL: localhost:6379
+
+ redis:
+  image: redis

@@ -11,6 +11,7 @@ import (
 )
 
 func handle(w http.ResponseWriter, r *http.Request) {
+
 	if "/favicon.ico" == r.URL.Path {
 		return
 	}
