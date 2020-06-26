@@ -16,18 +16,25 @@ func handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Print("request: " + r.URL.Path + " ")
+	fmt.Print("REDIS_URL: " + os.Getenv("REDIS_URL") + " ")
 
-	client := redis.NewClient(&redis.Options{Addr: os.Getenv("REDIS_URL")})
-	client.Incr("kcount")
+	client := redis.NewClient(&redis.Options{Addr: os.Getenv("REDIS_URL"),DB:0})
+	if client == nil {
 
-	val, err := client.Get("kcount").Result()
-	if err != nil {
-		panic(err)
+	 fmt.Print("failed to create the client")
+	 return
+
 	}
-	result := string("key count: " + string(val))
+        client.Incr("kcount")
 
-	fmt.Print(result + "\n\r")
-	fmt.Fprintf(w, result)
+	//val, err := client.Get("kcount").Result()
+	//if err != nil {
+	//	panic(err)
+	//}
+	//result := string("key count: " + string(val))
+
+	//fmt.Print(result + "\n\r")
+	//fmt.Fprintf(w, result)
 }
 
 func main() {
