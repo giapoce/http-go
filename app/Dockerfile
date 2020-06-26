@@ -10,10 +10,9 @@ WORKDIR /go/src/${APP_NAME}
 
 RUN apk add --no-cache git
 RUN go get github.com/go-redis/redis
+RUN go get golang.org/x/net/context
 
 
-RUN go build -o ${APP_NAME}
-
-CMD ./${APP_NAME}
+CMD ["go","run","main.go"]
 
 EXPOSE ${PORT}

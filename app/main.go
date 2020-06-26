@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/go-redis/redis"
+	"golang.org/x/net/context"
 )
 
 func handle(w http.ResponseWriter, r *http.Request) {
@@ -18,23 +19,19 @@ func handle(w http.ResponseWriter, r *http.Request) {
 	fmt.Print("request: " + r.URL.Path + " ")
 	fmt.Print("REDIS_URL: " + os.Getenv("REDIS_URL") + " ")
 
-	client := redis.NewClient(&redis.Options{Addr: os.Getenv("REDIS_URL"),DB:0})
-	if client == nil {
+	client := redis.NewClient(&redis.Options{Addr: os.Getenv("REDIS_URL")})
 
-	 fmt.Print("failed to create the client")
-	 return
+	ctx := context.Background()
+        client.Incr(ctx,"kcount")
 
+	val, err := client.Get(ctx,"kcount").Result()
+	if err != nil {
+		panic(err)
 	}
-        client.Incr("kcount")
+	result := string("key count: " + string(val))
 
-	//val, err := client.Get("kcount").Result()
-	//if err != nil {
-	//	panic(err)
-	//}
-	//result := string("key count: " + string(val))
-
-	//fmt.Print(result + "\n\r")
-	//fmt.Fprintf(w, result)
+        fmt.Print(result + "\n\r")
+        fmt.Fprintf(w, result)
 }
 
 func main() {
