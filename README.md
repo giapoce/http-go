@@ -33,7 +33,7 @@ To test the app I ran:
 curl -XGET 127.0.0.1:9090/
 which gave:
 
-key count: 10
+*key count: 10*
 
 # minikube
 
