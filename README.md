@@ -28,6 +28,13 @@ Then I built and started the containers with:
 docker-compose build
 docker-compose up -d
 
+To test the app I ran:
+
+curl -XGET 127.0.0.1:9090/
+which gave:
+
+key count: 10
+
 # minikube
 
 First, I installed both kubectl and minikube
@@ -57,3 +64,29 @@ kubectl delete service webappgo
 
 kubectl create -f kube8/redis/
 kubectl create -f kube8/http-go/
+
+Then I checked the outcome:
+
+kubectl get services
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+http-go      LoadBalancer   10.105.3.81     <pending>     9090:32517/TCP   21m
+kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          78m
+redis        LoadBalancer   10.105.158.72   <pending>     6379:31938/TCP   45m
+
+To test the application I ran: minikube service http-go
+
+|-----------|---------|-------------|------------------------|
+| NAMESPACE |  NAME   | TARGET PORT |          URL           |
+|-----------|---------|-------------|------------------------|
+| default   | http-go |        9090 | http://10.0.2.15:32517 |
+|-----------|---------|-------------|------------------------|
+* Opening service default/http-go in default browser...
+
+This gave me an IP to connect to the golang service
+
+And finally I ran the app:
+
+curl -XGET http://10.0.2.15:9090/
+
+key count: 12
+
