@@ -1,6 +1,4 @@
-
 package main
-
 
 import (
 	"fmt"
@@ -8,30 +6,26 @@ import (
 	"os"
 
 	"github.com/go-redis/redis"
-	"golang.org/x/net/context"
 )
 
 func handle(w http.ResponseWriter, r *http.Request) {
-
-	if "/favicon.ico" == r.URL.Path {
-		return
-	}
-	fmt.Print("request: " + r.URL.Path + " ")
+	//if "/favicon.ico" == r.URL.Path {
+	//	return
+	//}
+	//fmt.Print("request: " + r.URL.Path + " ")
 	fmt.Print("REDIS_URL: " + os.Getenv("REDIS_URL") + " ")
 
 	client := redis.NewClient(&redis.Options{Addr: os.Getenv("REDIS_URL")})
+	client.Incr("kcount")
 
-	ctx := context.Background()
-        client.Incr(ctx,"kcount")
-
-	val, err := client.Get(ctx,"kcount").Result()
+        val, err := client.Get("kcount").Result()
 	if err != nil {
 		panic(err)
 	}
 	result := string("key count: " + string(val))
 
-        fmt.Print(result + "\n\r")
-        fmt.Fprintf(w, result)
+	fmt.Print(result + "\n\r")
+	fmt.Fprintf(w, result)
 }
 
 func main() {

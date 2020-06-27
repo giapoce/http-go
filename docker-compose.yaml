@@ -1,15 +1,19 @@
 version: '3'
 services:
  http-go:
+   container_name: http-go
    build: ./app
    ports:
     - "9090:9090"
+   expose:
+    - "9090"
    links:
     - redis
    environment:
-    REDIS_URL: redis:6379
+    - REDIS_URL=redis:6379
 
  redis:
+  container_name: redis
   image: redis
-  ports:
-   - "6379:6379"
+  expose:
+    - "6379"

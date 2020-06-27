@@ -1,18 +1,17 @@
-FROM golang:1.12-alpine
+FROM golang
 
+RUN mkdir /app
+WORKDIR /app
+COPY . /app/
 
-ENV APP_NAME http-go
+ENV GO111MODULE=on
+ENV PORT=9090
 
-ENV PORT 9090
+COPY go.mod .
+COPY go.sum .
 
-COPY . /go/src/${APP_NAME}
-WORKDIR /go/src/${APP_NAME}
+RUN go mod download 
 
-RUN apk add --no-cache git
 RUN go get github.com/go-redis/redis
-RUN go get golang.org/x/net/context
-
-
 CMD ["go","run","main.go"]
-
 EXPOSE ${PORT}
