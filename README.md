@@ -70,7 +70,7 @@ Then I built the http-go image and created service and deployment for golang and
 
 Then I checked the outcome:
 
- **ubectl get services**
+ **kubectl get services**
   
   NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 
