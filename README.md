@@ -14,3 +14,13 @@ firewall-cmd --zone=trusted --add-interface=docker0 --permanent
 firewall-cmd --zone=public --add-masquerade --permanent
 
 firewall-cmd --reload
+
+To build the docker image for go http app, I used the GO111MODULE functionality,
+which allows to manage app dependencies quite easily.
+
+Inside the app directory I ran the following commands to build the dependecies modules:
+
+go mod init
+go mod vendor
+
+
