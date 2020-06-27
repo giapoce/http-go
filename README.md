@@ -10,5 +10,7 @@ For this to work on Centos 8 I had to trust docker0 interface
 and enable ip masquerading via firewalld,issuing the follwing commands:
 
 firewall-cmd --zone=trusted --add-interface=docker0 --permanent
+
 firewall-cmd --zone=public --add-masquerade --permanent
+
 firewall-cmd --reload
