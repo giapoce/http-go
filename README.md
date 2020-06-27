@@ -1,13 +1,12 @@
 # http-go
 
-A simple docker-compose app that runs an http server and a redis server.
+This is a simple docker-compose app that runs an http server and a redis server.
 
-The http server just increments a variable in redis then reads back its value.
+The http server just increments a variable in the redis db, then reads back its value.
 
-Provided are: docker-compose yaml file, golang container Dockerfile and main.go
 
-For this to work on Centos 8 I had to trust docker0 interface 
-and enable ip masquerading via firewalld,issuing the follwing commands:
+For this to work on Centos 8 I had to trust docker0 interface and enable ip masquerading via firewalld
+This is done with the following commands:
 
 firewall-cmd --zone=trusted --add-interface=docker0 --permanent
 
@@ -24,3 +23,37 @@ go mod init
 go mod vendor
 
 
+Then I built and started the containers with:
+
+docker-compose build
+docker-compose up -d
+
+# minikube
+
+First, I installed both kubectl and minikube
+
+a) kubectl:
+
+curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+mv ./kubectl /usr/local/bin/kubectl
+
+b) minikube:
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube
+chmod +x minikube
+install minikube /usr/local/bin/
+
+Then I prepared both for redis and go containers a service and a deployment file
+
+Then I built the http-go image and created service and deployment for golang and redis:
+
+docker build -t httpgo:v1 ./app
+minikube start
+
+kubectl delete deployment redis
+kubectl delete service redis
+kubectl delete deployment webappgo
+kubectl delete service webappgo
+
+kubectl create -f kube8/redis/
+kubectl create -f kube8/http-go/
