@@ -69,9 +69,13 @@ Then I checked the outcome:
 
 kubectl get services
 NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+
 http-go      LoadBalancer   10.105.3.81     <pending>     9090:32517/TCP   21m
+  
 kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          78m
+  
 redis        LoadBalancer   10.105.158.72   <pending>     6379:31938/TCP   45m
+  
 
 To test the application I ran: minikube service http-go
 
