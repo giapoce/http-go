@@ -16,10 +16,6 @@ spec:
       containers:
       - name: http-go
         image: http-go:v1
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100Mi
         env:
         - name: REDIS_URL
           value: redis.default.svc.cluster.local:6379

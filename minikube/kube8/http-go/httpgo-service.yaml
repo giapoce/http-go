@@ -6,9 +6,10 @@ metadata:
     app: http-go
     tier: frontend
 spec:
-  type: LoadBalancer
-  ports:
-  - port: 9090
+  type: ClusterIP
   selector:
     app: http-go
     tier: frontend
+  ports:
+  - protocol: TCP        
+    port: 9090
