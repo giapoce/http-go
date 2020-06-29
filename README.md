@@ -28,6 +28,7 @@ Inside the app directory I ran the following commands to build the dependecies m
 Then I built and started the containers with:
 
  **docker-compose build**
+ 
  **docker-compose up -d**
 
 To test the app I ran:
