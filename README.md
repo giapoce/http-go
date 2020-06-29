@@ -91,7 +91,7 @@ Then I checked the outcome:
   redis        LoadBalancer   10.105.158.72   <pending>     6379:31938/TCP   45m
   
 
-To test the application I ran: minikube service http-go
+To test the application I ran: **minikube service http-go**
 
 |-----------|---------|-------------|------------------------|
 | NAMESPACE |  NAME   | TARGET PORT |          URL           |
