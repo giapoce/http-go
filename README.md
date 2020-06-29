@@ -59,7 +59,7 @@ b) minikube:
  
  **install minikube /usr/local/bin/**
 
-Then I prepared both for redis and go containers a service and a deployment file
+Then I prepared a service and a deployment file both for redis and go containers 
 
 Then I built the http-go image and created service and deployment for golang and redis:
 
