@@ -6,6 +6,7 @@ The http server just increments a variable in the redis db, then reads back its 
 
 
 For this to work on Centos 8 I had to trust docker0 interface and enable ip masquerading via firewalld
+
 This is done with the following commands:
 
  **firewall-cmd --zone=trusted --add-interface=docker0 --permanent**
