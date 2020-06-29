@@ -21,6 +21,7 @@ which allows to manage app dependencies quite easily.
 Inside the app directory I ran the following commands to build the dependecies modules:
 
  **go mod init**
+ 
  **go mod vendor**
 
 
